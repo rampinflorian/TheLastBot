@@ -1,6 +1,6 @@
 ﻿using Discord.WebSocket;
-using DistillerieManzibar.Data.Dapper;
 using ManziBot.Server.Data;
+using ManziBot.Server.Data.Dapper;
 using ManziBot.Server.Models;
 using Microsoft.EntityFrameworkCore;
 

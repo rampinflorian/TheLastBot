@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.Common;
-using System.Threading.Tasks;
+﻿using System.Data.Common;
 using Dapper;
-using ManziBot.Server.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace DistillerieManzibar.Data.Dapper
+namespace ManziBot.Server.Data.Dapper
 {
     public class CustomQuery
     {
