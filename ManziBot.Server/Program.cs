@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using DistillerieManzibar.Data.Dapper;
 using ManziBot.Server.Data;
 using ManziBot.Server.HandlerEvent;
 using ManziBot.Server.Services;
@@ -39,6 +40,8 @@ namespace ManziBot.Server
                 .AddScoped<EmbedBuilderService>()
                 .AddScoped<LogService>()
                 .AddScoped<ApplicationDbContext>()
+                
+                .AddScoped<CustomQuery>()
                 
                 .BuildServiceProvider();
             _client.Ready += () =>

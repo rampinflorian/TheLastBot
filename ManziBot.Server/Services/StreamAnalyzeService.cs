@@ -25,7 +25,9 @@ namespace ManziBot.Server.Services
             if (socketGuild is not null)
             {
                 var streamUsers = await _twitchDetectorService.GetStreamingUsersAsync(socketGuild.Users.ToList());
-                var embedBuilders = await EmbedBuilderService.GetEmbedBuilders(streamUsers);
+                var streamManzibarUsers = await _twitchDetectorService.GetStreamingManzibarUsersAsync(streamUsers);
+                var streamManzibarUsersForPing = await _twitchDetectorService.GetStreamingManzibarUsersToPingAsync(streamManzibarUsers);
+                var embedBuilders = await EmbedBuilderService.GetEmbedBuilders(streamManzibarUsersForPing);
 
                 if (embedBuilders.Count > 0)
                 {
