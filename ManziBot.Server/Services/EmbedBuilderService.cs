@@ -5,10 +5,6 @@ namespace ManziBot.Server.Services;
 
 public class EmbedBuilderService
 {
-    public EmbedBuilderService()
-    {
-    }
-    
     public static Task<List<EmbedBuilder>> GetEmbedBuilders(List<SocketGuildUser> streamingUsers)
     {
         List<EmbedBuilder> embedBuilders = new();

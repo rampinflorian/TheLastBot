@@ -14,9 +14,9 @@ namespace ManziBot.Server
 {
     public class Program
     {
-        private DiscordSocketClient _client;
-        private CommandService _commands;
-        private IServiceProvider _services;
+        private DiscordSocketClient? _client;
+        private CommandService? _commands;
+        private IServiceProvider? _services;
 
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
@@ -63,22 +63,5 @@ namespace ManziBot.Server
             // Block this task until the program is closed.
             await Task.Delay(-1);
         }
-
-        // private async Task ClientOnLatencyUpdated(int arg1, int arg2)
-        // {
-        //    await Log.Write(new LogMessage(LogSeverity.Debug, "", "Latence Updated"));
-        //
-        //     var guild = _client.GetGuild(_guildId);
-        //
-        //     if (guild is not null)
-        //     {
-        //         var channel = guild.GetTextChannel(_channelId);
-        //         var streamAnalyseHandler = new StreamAnalyzeHandler();
-        //         // streamAnalyseHandler.Initialize(_client, _commands, _services, channel, guild);
-        //
-        //         var guildUsers = channel.Users.ToList();
-        //         await streamAnalyseHandler.AnalyzeAsync();
-        //     }
-        // }
     }
 }

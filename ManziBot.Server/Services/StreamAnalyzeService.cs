@@ -6,8 +6,8 @@ namespace ManziBot.Server.Services
 {
     public class StreamAnalyzeService
     {
-        private DiscordSocketClient _client;
-        private TwitchDetectorService _twitchDetectorService;
+        private readonly DiscordSocketClient _client;
+        private readonly TwitchDetectorService _twitchDetectorService;
 
         private const ulong GuildId = 913137817230659665;
         private const ulong ChannelId = 913137817230659668;
