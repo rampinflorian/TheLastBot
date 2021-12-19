@@ -9,23 +9,24 @@ namespace ManziBot.Server.Services
     {
         private readonly DiscordSocketClient _client;
         private readonly TwitchDetectorService _twitchDetectorService;
-        private readonly IConfiguration _configuration;
 
-        private  ulong GuildId = 0;
-        private  ulong ChannelId = 0;
+        private  ulong _guildId = 0;
+        private  ulong _channelId = 0;
 
-        public StreamAnalyzeService(DiscordSocketClient client, TwitchDetectorService twitchDetectorService, IConfiguration configuration)
+        public StreamAnalyzeService(DiscordSocketClient client, TwitchDetectorService twitchDetectorService)
         {
             _client = client;
             _twitchDetectorService = twitchDetectorService;
-            _configuration = configuration;
-            GuildId = Convert.ToUInt32(_configuration["Discord:GuildId"]);
-            ChannelId = Convert.ToUInt32(_configuration["Discord:ChannelId"]);
         }
 
         public async Task AnalyzeAsync()
         {
-            var socketGuild = _client.GetGuild(GuildId);
+            var myIni = new IniFileService("Configuration.ini");
+            
+            _guildId = Convert.ToUInt64(myIni.Read("GuildId", "Discord"));
+            _channelId = Convert.ToUInt64(myIni.Read("ChannelId", "Discord"));
+            
+            var socketGuild = _client.GetGuild(_guildId);
 
             if (socketGuild is not null)
             {
@@ -36,7 +37,7 @@ namespace ManziBot.Server.Services
 
                 if (embedBuilders.Count > 0)
                 {
-                    var socketTextChannel = socketGuild.GetTextChannel(ChannelId);
+                    var socketTextChannel = socketGuild.GetTextChannel(_channelId);
 
                     await socketTextChannel.SendMessageAsync("", false, embedBuilders.First().Build());
                 }

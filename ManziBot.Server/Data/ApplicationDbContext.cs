@@ -9,7 +9,16 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        const string mySqlConnectionStr = @"server=localhost; port=3306; database=db_manzibot_dev; user=root; password=; Persist Security Info=False; Connect Timeout=300";
+        var mySqlConnectionStr = "";
+
+#if DEBUG
+        mySqlConnectionStr= @"server=localhost; port=3306; database=db_manzibot_dev; user=root; password=; Persist Security Info=False; Connect Timeout=300";
+
+#elif RELEASE
+        mySqlConnectionStr = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+#endif
+
         options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
     }
 }

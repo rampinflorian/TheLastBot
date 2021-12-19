@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using ManziBot.Server.Data;
 using ManziBot.Server.Data.Dapper;
 using ManziBot.Server.HandlerEvent;
 using ManziBot.Server.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ManziBot.Server
@@ -19,6 +15,7 @@ namespace ManziBot.Server
         private CommandService? _commands;
         private IServiceProvider? _services;
 
+
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -27,15 +24,10 @@ namespace ManziBot.Server
             _client = new DiscordSocketClient();
             _commands = new CommandService();
             
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
-            
             _services = new ServiceCollection()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
-                
+               
                 .AddScoped<CommandHandler>()
                 .AddScoped<MessageHandler>()
                 .AddScoped<LatencyUpdateHandler>()
@@ -54,9 +46,11 @@ namespace ManziBot.Server
                 Console.WriteLine("Bot is connected!");
                 return Task.CompletedTask;
             };
-
-
-            await _client.LoginAsync(TokenType.Bot, configuration["Discord:ChannelId"]);
+            
+            var myIni = new IniFileService("Configuration.ini");
+            var token = myIni.Read("ApiToken", "Discord"); 
+            
+            await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
             await _services.GetRequiredService<CommandHandler>().InstallCommandAsync();

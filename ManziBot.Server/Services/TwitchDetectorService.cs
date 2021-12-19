@@ -10,11 +10,14 @@ namespace ManziBot.Server.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly CustomQuery _customQuery;
+        private readonly IniFileService _iniFileService;
 
         public TwitchDetectorService(ApplicationDbContext context, CustomQuery customQuery)
         {
             _context = context;
             _customQuery = customQuery;
+            _iniFileService = new IniFileService("Configuration.ini");
+
         }
 
         public Task<List<SocketGuildUser>> GetStreamingUsersAsync(List<SocketGuildUser> users)
@@ -117,7 +120,8 @@ namespace ManziBot.Server.Services
         {
 
             var discordUser = await _context.DiscordUsers.AsNoTracking().FirstAsync(m => m.GuildUserId == streamManzibarUser.Id);
-            var result = discordUser.IsOnline == false && discordUser.LastActivity.AddMinutes(15) < DateTime.Now;
+            var pingDelay = Convert.ToInt16(_iniFileService.Read("Delay", "Ping"));
+            var result = discordUser.IsOnline == false && discordUser.LastActivity.AddMinutes(pingDelay) < DateTime.Now;
             
             return await Task.FromResult(result);
         }
