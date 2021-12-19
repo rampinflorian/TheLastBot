@@ -8,6 +8,7 @@ using ManziBot.Server.Data;
 using ManziBot.Server.Data.Dapper;
 using ManziBot.Server.HandlerEvent;
 using ManziBot.Server.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ManziBot.Server
@@ -26,7 +27,11 @@ namespace ManziBot.Server
             _client = new DiscordSocketClient();
             _commands = new CommandService();
             
-
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+            
             _services = new ServiceCollection()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
@@ -50,9 +55,8 @@ namespace ManziBot.Server
                 return Task.CompletedTask;
             };
 
-            const string token = "OTEzMTM5MTAzOTcxODAzMjM3.YZ6JDw.QfWWIj5XUXUapg6fVuTWlUzK7TQ";
 
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, configuration["Discord:ChannelId"]);
             await _client.StartAsync();
 
             await _services.GetRequiredService<CommandHandler>().InstallCommandAsync();

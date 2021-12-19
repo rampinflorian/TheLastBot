@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
 
 namespace ManziBot.Server.Services
 {
@@ -8,14 +9,18 @@ namespace ManziBot.Server.Services
     {
         private readonly DiscordSocketClient _client;
         private readonly TwitchDetectorService _twitchDetectorService;
+        private readonly IConfiguration _configuration;
 
-        private const ulong GuildId = 913137817230659665;
-        private const ulong ChannelId = 913137817230659668;
+        private  ulong GuildId = 0;
+        private  ulong ChannelId = 0;
 
-        public StreamAnalyzeService(DiscordSocketClient client, TwitchDetectorService twitchDetectorService)
+        public StreamAnalyzeService(DiscordSocketClient client, TwitchDetectorService twitchDetectorService, IConfiguration configuration)
         {
             _client = client;
             _twitchDetectorService = twitchDetectorService;
+            _configuration = configuration;
+            GuildId = Convert.ToUInt32(_configuration["Discord:GuildId"]);
+            ChannelId = Convert.ToUInt32(_configuration["Discord:ChannelId"]);
         }
 
         public async Task AnalyzeAsync()
