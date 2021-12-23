@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 
 namespace ManziBot.Server.HandlerEvent
 {
@@ -24,7 +23,7 @@ namespace ManziBot.Server.HandlerEvent
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
-        public async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
+        private static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
         {
             if (!command.IsSpecified)
             {

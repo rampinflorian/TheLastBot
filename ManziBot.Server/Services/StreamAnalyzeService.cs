@@ -1,7 +1,4 @@
-﻿using Discord;
-using Discord.Commands;
-using Discord.WebSocket;
-using Microsoft.Extensions.Configuration;
+﻿using Discord.WebSocket;
 
 namespace ManziBot.Server.Services
 {
@@ -10,8 +7,8 @@ namespace ManziBot.Server.Services
         private readonly DiscordSocketClient _client;
         private readonly TwitchDetectorService _twitchDetectorService;
 
-        private  ulong _guildId = 0;
-        private  ulong _channelId = 0;
+        private  ulong _guildId ;
+        private  ulong _channelId;
 
         public StreamAnalyzeService(DiscordSocketClient client, TwitchDetectorService twitchDetectorService)
         {
@@ -30,7 +27,7 @@ namespace ManziBot.Server.Services
 
             if (socketGuild is not null)
             {
-                var streamUsers = await _twitchDetectorService.GetStreamingUsersAsync(socketGuild.Users.ToList());
+                var streamUsers = await TwitchDetectorService.GetStreamingUsersAsync(socketGuild.Users.ToList());
                 var streamManzibarUsers = await _twitchDetectorService.GetStreamingManzibarUsersAsync(streamUsers);
                 var streamManzibarUsersForPing = await _twitchDetectorService.GetStreamingManzibarUsersToPingAsync(streamManzibarUsers);
                 var embedBuilders = await EmbedBuilderService.GetEmbedBuilders(streamManzibarUsersForPing);

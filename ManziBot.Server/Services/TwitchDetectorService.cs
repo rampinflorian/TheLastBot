@@ -20,7 +20,7 @@ namespace ManziBot.Server.Services
 
         }
 
-        public Task<List<SocketGuildUser>> GetStreamingUsersAsync(List<SocketGuildUser> users)
+        public static Task<List<SocketGuildUser>> GetStreamingUsersAsync(IEnumerable<SocketGuildUser> users)
         {
             var streamingUsers = new List<SocketGuildUser>();
             streamingUsers.AddRange(users.Where(m => !m.IsBot && m.Activity is not null));
@@ -40,7 +40,6 @@ namespace ManziBot.Server.Services
         {
             var streamManzibarUsersToPing = new List<SocketGuildUser>();
 
-            var id = streamManzibarUsers.Select(m => m.Id).ToArray();
             var discordUsersInList = await _context.DiscordUsers
                 .Where(m => streamManzibarUsers.Select(s => s.Id).Contains(m.GuildUserId)).ToListAsync();
 
@@ -103,7 +102,7 @@ namespace ManziBot.Server.Services
         {
 
 
-            var sql = "UPDATE discordusers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamManzibarUserId";
+            const string sql = "UPDATE discordusers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamManzibarUserId";
             var parameters = new { streamManzibarUserId = streamManzibarUser.Id };
             try
             {
