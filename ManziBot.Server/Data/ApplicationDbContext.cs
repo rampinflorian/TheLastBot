@@ -15,7 +15,7 @@ public class ApplicationDbContext : DbContext
         mySqlConnectionStr= @"server=localhost; port=3306; database=db_manzibot_dev; user=root; password=; Persist Security Info=False; Connect Timeout=300";
 
 #elif RELEASE
-        mySqlConnectionStr = Environment.GetEnvironmentVariable("DATABASE_URL");
+        mySqlConnectionStr = Environment.GetEnvironmentVariable("MANZIBOT_DATABASE_URL");
 
 #endif
 

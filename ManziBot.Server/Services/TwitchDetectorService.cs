@@ -23,7 +23,7 @@ namespace ManziBot.Server.Services
         public static Task<List<SocketGuildUser>> GetStreamingUsersAsync(IEnumerable<SocketGuildUser> users)
         {
             var streamingUsers = new List<SocketGuildUser>();
-            streamingUsers.AddRange(users.Where(m => !m.IsBot && m.Activity is not null));
+            streamingUsers.AddRange(users.Where(m => !m.IsBot && m.Activity?.Name == "Twitch"));
 
             return Task.FromResult(streamingUsers);
         }
