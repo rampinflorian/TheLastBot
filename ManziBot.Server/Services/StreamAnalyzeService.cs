@@ -1,4 +1,5 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
 
 namespace ManziBot.Server.Services
 {
@@ -36,7 +37,11 @@ namespace ManziBot.Server.Services
                 {
                     var socketTextChannel = socketGuild.GetTextChannel(_channelId);
 
-                    await socketTextChannel.SendMessageAsync("", false, embedBuilders.First().Build());
+                    foreach (var embedBuilder in embedBuilders)
+                    {
+                        await socketTextChannel.SendMessageAsync("", false, embedBuilder.Build());
+                    }
+                    await LogService.Write(new LogMessage(LogSeverity.Debug, "", "New streamer(s) : " + String.Join(", ", embedBuilders.Select(m => m.Author.Name))));
                 }
             }
         }
