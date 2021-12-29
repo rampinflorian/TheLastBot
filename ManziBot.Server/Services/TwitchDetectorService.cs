@@ -1,4 +1,5 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
 using ManziBot.Server.Data;
 using ManziBot.Server.Data.Dapper;
 using ManziBot.Server.Models;
@@ -23,15 +24,14 @@ namespace ManziBot.Server.Services
         public static Task<List<SocketGuildUser>> GetStreamingUsersAsync(IEnumerable<SocketGuildUser> users)
         {
             var streamingUsers = new List<SocketGuildUser>();
-            streamingUsers.AddRange(users.Where(m => !m.IsBot && m.Activity?.Name == "Twitch"));
+            streamingUsers.AddRange(users.Where(m => !m.IsBot && m.Activities.Any(activity => activity.Name == "Twitch")));
 
             return Task.FromResult(streamingUsers);
         }
 
         public Task<List<SocketGuildUser>> GetStreamingManzibarUsersAsync(List<SocketGuildUser> streamingUsers)
         {
-            var manzibarStreamingUsers = streamingUsers
-                .Where(streamingUser => IsManzibarFlagExist(streamingUser.Activity.Details)).ToList();
+            var manzibarStreamingUsers = streamingUsers.Where(streamingUser => streamingUser.Activities.Any(m => m.Name == "Twitch")).ToList();
             return Task.FromResult(manzibarStreamingUsers);
         }
 
