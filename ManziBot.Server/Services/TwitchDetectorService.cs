@@ -31,7 +31,19 @@ namespace ManziBot.Server.Services
 
         public Task<List<SocketGuildUser>> GetStreamingManzibarUsersAsync(List<SocketGuildUser> streamingUsers)
         {
-            var manzibarStreamingUsers = streamingUsers.Where(streamingUser => streamingUser.Activities.Any(m => m.Name == "Twitch")).ToList();
+            // var streamingTwitchUsers = streamingUsers.Where(streamingUser => streamingUser.Activities.Any(m => m.Name == "Twitch")).ToList();
+            
+            var manzibarStreamingUsers = new List<SocketGuildUser>();
+
+            foreach (var streamingTwitchUser in streamingUsers)
+            {
+                var twitchGame = (StreamingGame)streamingTwitchUser.Activities.FirstOrDefault(m => m.Name == "Twitch")!;
+                if (IsManzibarFlagExist(twitchGame.Details))
+                {
+                    manzibarStreamingUsers.Add(streamingTwitchUser);
+                }
+            }
+            
             return Task.FromResult(manzibarStreamingUsers);
         }
 
