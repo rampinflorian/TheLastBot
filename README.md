@@ -1,0 +1,2 @@
+# ManziBot
+Bot Discord Manzibar
