@@ -1,13 +1,13 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using ManziBot.Server.Data;
-using ManziBot.Server.Data.Dapper;
-using ManziBot.Server.HandlerEvent;
-using ManziBot.Server.Services;
+using TheLastBot.Server.Data;
+using TheLastBot.Server.Data.Dapper;
+using TheLastBot.Server.HandlerEvent;
+using TheLastBot.Server.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ManziBot.Server
+namespace TheLastBot.Server
 {
     public class Program
     {

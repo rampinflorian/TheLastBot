@@ -2,7 +2,7 @@
 using Discord;
 using Discord.Commands;
 
-namespace ManziBot.Server.HandlerEvent
+namespace TheLastBot.Server.HandlerEvent
 {
     public class CommandHandler
     {

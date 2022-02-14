@@ -1,11 +1,11 @@
 ﻿using Discord;
 using Discord.WebSocket;
-using ManziBot.Server.Data;
-using ManziBot.Server.Data.Dapper;
-using ManziBot.Server.Models;
+using TheLastBot.Server.Data;
+using TheLastBot.Server.Data.Dapper;
+using TheLastBot.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManziBot.Server.Services
+namespace TheLastBot.Server.Services
 {
     public class TwitchDetectorService
     {

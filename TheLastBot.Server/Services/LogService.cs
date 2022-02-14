@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Discord;
 
-namespace ManziBot.Server.Services
+namespace TheLastBot.Server.Services
 {
     public class LogService
     {

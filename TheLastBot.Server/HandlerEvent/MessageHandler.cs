@@ -2,7 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 
-namespace ManziBot.Server.HandlerEvent;
+namespace TheLastBot.Server.HandlerEvent;
 
 public class MessageHandler
 {

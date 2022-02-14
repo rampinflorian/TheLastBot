@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 
-namespace ManziBot.Server.Services;
+namespace TheLastBot.Server.Services;
 
 public class EmbedBuilderService
 {
@@ -26,7 +26,7 @@ public class EmbedBuilderService
                 Url = activity.Url,
                 ThumbnailUrl = streamingUser.GetAvatarUrl() ?? streamingUser.GetDefaultAvatarUrl(),
                 ImageUrl = streamingUser.GetAvatarUrl() ?? streamingUser.GetDefaultAvatarUrl(),
-                Footer = new EmbedFooterBuilder { Text = "ManziBot" }
+                Footer = new EmbedFooterBuilder { Text = "TheLastBot" }
             });
         }
         return Task.FromResult(embedBuilders);

@@ -1,7 +1,7 @@
-using ManziBot.Server.Models;
+using TheLastBot.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManziBot.Server.Data;
+namespace TheLastBot.Server.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -12,10 +12,10 @@ public class ApplicationDbContext : DbContext
         var mySqlConnectionStr = "";
 
 #if DEBUG
-        mySqlConnectionStr= @"server=localhost; port=3306; database=db_manzibot_dev; user=root; password=; Persist Security Info=False; Connect Timeout=300";
+        mySqlConnectionStr= @"server=localhost; port=3306; database=db_TheLastBot_dev; user=root; password=; Persist Security Info=False; Connect Timeout=300";
 
 #elif RELEASE
-        mySqlConnectionStr = Environment.GetEnvironmentVariable("MANZIBOT_DATABASE_URL");
+        mySqlConnectionStr = Environment.GetEnvironmentVariable("TheLastBot_DATABASE_URL");
 
 #endif
 

@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 
-namespace ManziBot.Server.Services
+namespace TheLastBot.Server.Services
 {
     public class StreamAnalyzeService
     {

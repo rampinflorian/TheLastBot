@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManziBot.Server", "ManziBot.Server\ManziBot.Server.csproj", "{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLastBot.Server", "TheLastBot.Server\TheLastBot.Server.csproj", "{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

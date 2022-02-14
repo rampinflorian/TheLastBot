@@ -2,9 +2,9 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using ManziBot.Server.Services;
+using TheLastBot.Server.Services;
 
-namespace ManziBot.Server.HandlerEvent;
+namespace TheLastBot.Server.HandlerEvent;
 
 public class LatencyUpdateHandler
 {

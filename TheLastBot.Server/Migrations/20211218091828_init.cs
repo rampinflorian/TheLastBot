@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ManziBot.Server.Migrations
+namespace TheLastBot.Server.Migrations
 {
     public partial class init : Migration
     {

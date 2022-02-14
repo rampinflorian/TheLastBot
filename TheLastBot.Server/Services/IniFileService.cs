@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ManziBot.Server.Services;
+namespace TheLastBot.Server.Services;
 
 public class IniFileService
 {

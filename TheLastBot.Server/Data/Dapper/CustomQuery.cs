@@ -2,7 +2,7 @@
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManziBot.Server.Data.Dapper
+namespace TheLastBot.Server.Data.Dapper
 {
     public class CustomQuery
     {
