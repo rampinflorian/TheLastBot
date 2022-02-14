@@ -29,9 +29,9 @@ namespace TheLastBot.Server.Services
             if (socketGuild is not null)
             {
                 var streamUsers = await TwitchDetectorService.GetStreamingUsersAsync(socketGuild.Users.ToList());
-                var streamManzibarUsers = await _twitchDetectorService.GetStreamingManzibarUsersAsync(streamUsers);
-                var streamManzibarUsersForPing = await _twitchDetectorService.GetStreamingManzibarUsersToPingAsync(streamManzibarUsers);
-                var embedBuilders = await EmbedBuilderService.GetEmbedBuilders(streamManzibarUsersForPing);
+                var streamTlhUsers = await _twitchDetectorService.GetStreamingTlhUsersAsync(streamUsers);
+                var streamTlhUsersForPing = await _twitchDetectorService.GetStreamingTlhUsersToPingAsync(streamTlhUsers);
+                var embedBuilders = await EmbedBuilderService.GetEmbedBuilders(streamTlhUsersForPing);
 
                 if (embedBuilders.Count > 0)
                 {

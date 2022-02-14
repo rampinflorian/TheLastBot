@@ -6,6 +6,7 @@ using TheLastBot.Server.Data.Dapper;
 using TheLastBot.Server.HandlerEvent;
 using TheLastBot.Server.Services;
 using Microsoft.Extensions.DependencyInjection;
+using TheLastBot.Server.Commands;
 
 namespace TheLastBot.Server
 {
@@ -37,6 +38,8 @@ namespace TheLastBot.Server
                 .AddScoped<EmbedBuilderService>()
                 .AddScoped<LogService>()
                 .AddScoped<ApplicationDbContext>()
+                
+                .AddScoped<HelpModule>()
                 
                 .AddScoped<CustomQuery>()
                 

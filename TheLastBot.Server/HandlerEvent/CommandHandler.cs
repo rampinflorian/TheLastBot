@@ -38,7 +38,7 @@ namespace TheLastBot.Server.HandlerEvent
                 return;
             }
 
-            await context.Channel.SendMessageAsync($"{context.User.Username} Something went wrong -> [{result}]!");
+            await context.Channel.SendMessageAsync($"{context.User.Username} Il y a une erreur dans la commande : [{result}]!");
         }
     }
 }

@@ -29,64 +29,64 @@ namespace TheLastBot.Server.Services
             return Task.FromResult(streamingUsers);
         }
 
-        public Task<List<SocketGuildUser>> GetStreamingManzibarUsersAsync(List<SocketGuildUser> streamingUsers)
+        public Task<List<SocketGuildUser>> GetStreamingTlhUsersAsync(List<SocketGuildUser> streamingUsers)
         {
             // var streamingTwitchUsers = streamingUsers.Where(streamingUser => streamingUser.Activities.Any(m => m.Name == "Twitch")).ToList();
             
-            var manzibarStreamingUsers = new List<SocketGuildUser>();
+            var TlhStreamingUsers = new List<SocketGuildUser>();
 
             foreach (var streamingTwitchUser in streamingUsers)
             {
                 var twitchGame = (StreamingGame)streamingTwitchUser.Activities.FirstOrDefault(m => m.Name == "Twitch")!;
-                if (IsManzibarFlagExist(twitchGame.Details))
+                if (IsTlhFlagExist(twitchGame.Details))
                 {
-                    manzibarStreamingUsers.Add(streamingTwitchUser);
+                    TlhStreamingUsers.Add(streamingTwitchUser);
                 }
             }
             
-            return Task.FromResult(manzibarStreamingUsers);
+            return Task.FromResult(TlhStreamingUsers);
         }
 
-        public async Task<List<SocketGuildUser>> GetStreamingManzibarUsersToPingAsync(
-            List<SocketGuildUser> streamManzibarUsers)
+        public async Task<List<SocketGuildUser>> GetStreamingTlhUsersToPingAsync(
+            List<SocketGuildUser> streamTlhUsers)
         {
-            var streamManzibarUsersToPing = new List<SocketGuildUser>();
+            var streamTlhUsersToPing = new List<SocketGuildUser>();
 
             var discordUsersInList = await _context.DiscordUsers
-                .Where(m => streamManzibarUsers.Select(s => s.Id).Contains(m.GuildUserId)).ToListAsync();
+                .Where(m => streamTlhUsers.Select(s => s.Id).Contains(m.GuildUserId)).ToListAsync();
 
-            foreach (var streamManzibarUser in streamManzibarUsers)
+            foreach (var streamTlhUser in streamTlhUsers)
             {
-                if (discordUsersInList.Any(m => m.GuildUserId == streamManzibarUser.Id))
+                if (discordUsersInList.Any(m => m.GuildUserId == streamTlhUser.Id))
                 {
                     // Si existe dans la liste
-                    if (await _isStreamerReallyLaunchingStreamAsync(streamManzibarUser))
+                    if (await _isStreamerReallyLaunchingStreamAsync(streamTlhUser))
                     {
-                        streamManzibarUsersToPing.Add(streamManzibarUser);
+                        streamTlhUsersToPing.Add(streamTlhUser);
                     }
 
-                    await _updatedStreamInBaseAsync(streamManzibarUser);
+                    await _updatedStreamInBaseAsync(streamTlhUser);
                 }
                 else
                 {
                     // Si n'existe pas dans la liste
-                    await _addNewStreamInBaseAsync(streamManzibarUser);
-                    streamManzibarUsersToPing.Add(streamManzibarUser);
+                    await _addNewStreamInBaseAsync(streamTlhUser);
+                    streamTlhUsersToPing.Add(streamTlhUser);
                 }
             }
 
             // Reset not streaming users
-            await _resetNotStreamingUsersAsync(streamManzibarUsers);
+            await _resetNotStreamingUsersAsync(streamTlhUsers);
             
-            return streamManzibarUsersToPing;
+            return streamTlhUsersToPing;
         }
 
-        private async Task _resetNotStreamingUsersAsync(List<SocketGuildUser> streamManzibarUsers)
+        private async Task _resetNotStreamingUsersAsync(List<SocketGuildUser> streamTlhUsers)
         {
-            var streamManzibarUsersArray = streamManzibarUsers.Select(m => m.Id).ToArray();
+            var streamTlhUsersArray = streamTlhUsers.Select(m => m.Id).ToArray();
 
-            var sql = "UPDATE discordusers SET IsOnline = false WHERE GuildUserId NOT IN (@streamManzibarUsersId)";
-            var parameters = new { streamManzibarUsersId = String.Join(',', streamManzibarUsersArray) };
+            var sql = "UPDATE discordusers SET IsOnline = false WHERE GuildUserId NOT IN (@streamTlhUsersId)";
+            var parameters = new { streamTlhUsersId = String.Join(',', streamTlhUsersArray) };
             try
             {
                 await _customQuery.ExecuteAsync(sql, parameters);
@@ -98,24 +98,24 @@ namespace TheLastBot.Server.Services
             }
         }
 
-        private async Task _addNewStreamInBaseAsync(SocketGuildUser streamManzibarUser)
+        private async Task _addNewStreamInBaseAsync(SocketGuildUser streamTlhUser)
         {
             _context.Add(new DiscordUser
                 {
                     IsOnline = true,
                     LastActivity = DateTime.Now,
-                    GuildUserId = streamManzibarUser.Id
+                    GuildUserId = streamTlhUser.Id
                 }
             );
             await _context.SaveChangesAsync();
         }
 
-        private async Task _updatedStreamInBaseAsync(SocketGuildUser streamManzibarUser)
+        private async Task _updatedStreamInBaseAsync(SocketGuildUser streamTlhUser)
         {
 
 
-            const string sql = "UPDATE discordusers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamManzibarUserId";
-            var parameters = new { streamManzibarUserId = streamManzibarUser.Id };
+            const string sql = "UPDATE discordusers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamTlhUserId";
+            var parameters = new { streamTlhUserId = streamTlhUser.Id };
             try
             {
                 await _customQuery.ExecuteAsync(sql, parameters);
@@ -127,10 +127,10 @@ namespace TheLastBot.Server.Services
             }
         }
 
-        private async Task<bool> _isStreamerReallyLaunchingStreamAsync(SocketGuildUser streamManzibarUser)
+        private async Task<bool> _isStreamerReallyLaunchingStreamAsync(SocketGuildUser streamTlhUser)
         {
 
-            var discordUser = await _context.DiscordUsers.AsNoTracking().FirstAsync(m => m.GuildUserId == streamManzibarUser.Id);
+            var discordUser = await _context.DiscordUsers.AsNoTracking().FirstAsync(m => m.GuildUserId == streamTlhUser.Id);
             var pingDelay = Convert.ToInt16(_iniFileService.Read("Delay", "Ping"));
             var result = discordUser.IsOnline == false && discordUser.LastActivity.AddMinutes(pingDelay) < DateTime.Now;
             
@@ -138,10 +138,10 @@ namespace TheLastBot.Server.Services
         }
 
 
-        private static bool IsManzibarFlagExist(string title)
+        private static bool IsTlhFlagExist(string title)
         {
             var formatTitle = title.Replace(" ", String.Empty).ToUpper();
-            var result = formatTitle.Contains("[MANZIBAR]");
+            var result = formatTitle.Contains("[THELASTHOPE]");
             return result;
         }
     }
