@@ -1,2 +1,2 @@
-# ManziBot
-Bot Discord Manzibar
+# TheLastBot
+Bot Discord TheLastHope
