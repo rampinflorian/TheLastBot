@@ -1,9 +1,9 @@
 ﻿using Discord;
 using Discord.WebSocket;
-using TheLastBot.Server.Data;
-using TheLastBot.Server.Data.Dapper;
-using TheLastBot.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using TheLastBot.Database.Data;
+using TheLastBot.Database.Data.Dapper;
+using TheLastBot.Database.Data.Models;
 
 namespace TheLastBot.Server.Services
 {

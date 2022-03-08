@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
 namespace TheLastBot.Server.Commands;
@@ -16,9 +17,11 @@ public class HelpModule : ModuleBase<SocketCommandContext>
 
     [Command("help")]
     [Summary("Tu as besoin d'aide ? c'est bien !")]
-    public async Task HelpAsync(string echo)
+    public async Task HelpAsync()
     {
-        
-        await ReplyAsync($"Tu as dit : {echo}");
+        var builder = new ComponentBuilder()
+            .WithButton("label", "custom-id");
+
+        await ReplyAsync("Here is a button!", components: builder.Build());
     }
 }

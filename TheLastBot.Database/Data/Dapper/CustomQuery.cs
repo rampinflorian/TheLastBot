@@ -2,7 +2,7 @@
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace TheLastBot.Server.Data.Dapper
+namespace TheLastBot.Database.Data.Dapper
 {
     public class CustomQuery
     {

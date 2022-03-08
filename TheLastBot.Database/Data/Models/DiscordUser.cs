@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TheLastBot.Server.Models;
+namespace TheLastBot.Database.Data.Models;
 
 public class DiscordUser
 {

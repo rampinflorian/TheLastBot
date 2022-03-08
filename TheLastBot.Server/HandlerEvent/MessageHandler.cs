@@ -20,6 +20,8 @@ public class MessageHandler
     public async Task InstallCommandAsync()
     {
         _client.MessageReceived += HandleCommandAsync;
+        _client.ButtonExecuted += MyButtonHandler;
+
         await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), 
             services: null);
     }
@@ -49,4 +51,18 @@ public class MessageHandler
             argPos: argPos,
             services: null);
     }
+    
+    private async Task MyButtonHandler(SocketMessageComponent component)
+    {
+        // We can now check for our custom id
+        switch(component.Data.CustomId)
+        {
+            // Since we set our buttons custom id as 'custom-id', we can check for it like this:
+            case "custom-id":
+                // Lets respond by sending a message saying they clicked the button
+                await component.RespondAsync($"{component.User.Mention} has clicked the button!");
+                break;
+        }
+    }
+    
 }

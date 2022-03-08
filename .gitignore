@@ -5,3 +5,5 @@ riderModule.iml
 /_ReSharper.Caches/
 ManziBot.Server/appsettings.json
 ManziBot.Server/Configuration.ini
+TheLastBot.Database/appsettings.Development.json
+TheLastBot.Api/appsettings.Development.json

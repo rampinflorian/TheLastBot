@@ -1,11 +1,11 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using TheLastBot.Server.Data;
-using TheLastBot.Server.Data.Dapper;
 using TheLastBot.Server.HandlerEvent;
 using TheLastBot.Server.Services;
 using Microsoft.Extensions.DependencyInjection;
+using TheLastBot.Database.Data;
+using TheLastBot.Database.Data.Dapper;
 using TheLastBot.Server.Commands;
 
 namespace TheLastBot.Server

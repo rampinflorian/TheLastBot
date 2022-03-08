@@ -11,13 +11,12 @@
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="Discord.Addons.Interactive" Version="2.0.0" />
-      <PackageReference Include="Discord.Net" Version="3.3.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
+      <PackageReference Include="Discord.Net" Version="3.4.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
@@ -25,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations" />
+      <ProjectReference Include="..\TheLastBot.Database\TheLastBot.Database.csproj" />
     </ItemGroup>
 
 </Project>
