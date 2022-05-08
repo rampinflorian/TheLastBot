@@ -114,7 +114,7 @@ namespace TheLastBot.Server.Services
         {
 
 
-            const string sql = "UPDATE DiscordUsers SET IsOnline = TRUE, LastActivity = DATE_ADD(now(),interval 2 hour) WHERE GuildUserId = @streamTlhUserId";
+            const string sql = "UPDATE DiscordUsers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamTlhUserId";
             var parameters = new { streamTlhUserId = streamTlhUser.Id };
             try
             {
