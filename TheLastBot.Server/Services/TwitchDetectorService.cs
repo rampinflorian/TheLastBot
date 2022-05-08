@@ -85,7 +85,7 @@ namespace TheLastBot.Server.Services
         {
             var streamTlhUsersArray = streamTlhUsers.Select(m => m.Id).ToArray();
 
-            var sql = "UPDATE discordusers SET IsOnline = false WHERE GuildUserId NOT IN (@streamTlhUsersId)";
+            var sql = "UPDATE DiscordUsers SET IsOnline = false WHERE GuildUserId NOT IN (@streamTlhUsersId)";
             var parameters = new { streamTlhUsersId = String.Join(',', streamTlhUsersArray) };
             try
             {
@@ -114,7 +114,7 @@ namespace TheLastBot.Server.Services
         {
 
 
-            const string sql = "UPDATE discordusers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamTlhUserId";
+            const string sql = "UPDATE DiscordUsers SET IsOnline = TRUE, LastActivity = NOW() WHERE GuildUserId = @streamTlhUserId";
             var parameters = new { streamTlhUserId = streamTlhUser.Id };
             try
             {
