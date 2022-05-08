@@ -29,7 +29,7 @@ jobs:
       run: ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
       
     - name: Deploy with rsync
-      run: rsync -avz /home/runner/work/TheLastBot/TheLastBot/TheLastBot/deploy/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
+      run: rsync -avz /home/runner/work/TheLastBot/TheLastBot/deploy/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
       
     - name: Reload service
       uses: garygrossgarten/github-action-ssh@release
