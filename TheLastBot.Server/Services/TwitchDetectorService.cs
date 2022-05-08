@@ -11,14 +11,11 @@ namespace TheLastBot.Server.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly CustomQuery _customQuery;
-        private readonly IniFileService _iniFileService;
 
         public TwitchDetectorService(ApplicationDbContext context, CustomQuery customQuery)
         {
             _context = context;
             _customQuery = customQuery;
-            _iniFileService = new IniFileService("Configuration.ini");
-
         }
 
         public static Task<List<SocketGuildUser>> GetStreamingUsersAsync(IEnumerable<SocketGuildUser> users)
@@ -52,26 +49,29 @@ namespace TheLastBot.Server.Services
         {
             var streamTlhUsersToPing = new List<SocketGuildUser>();
 
-            var discordUsersInList = await _context.DiscordUsers
-                .Where(m => streamTlhUsers.Select(s => s.Id).Contains(m.GuildUserId)).ToListAsync();
-
-            foreach (var streamTlhUser in streamTlhUsers)
+            if (_context.DiscordUsers != null)
             {
-                if (discordUsersInList.Any(m => m.GuildUserId == streamTlhUser.Id))
+                var discordUsersInList = await _context.DiscordUsers
+                    .Where(m => streamTlhUsers.Select(s => s.Id).Contains(m.GuildUserId)).ToListAsync();
+
+                foreach (var streamTlhUser in streamTlhUsers)
                 {
-                    // Si existe dans la liste
-                    if (await _isStreamerReallyLaunchingStreamAsync(streamTlhUser))
+                    if (discordUsersInList.Any(m => m.GuildUserId == streamTlhUser.Id))
                     {
+                        // Si existe dans la liste
+                        if (await _isStreamerReallyLaunchingStreamAsync(streamTlhUser))
+                        {
+                            streamTlhUsersToPing.Add(streamTlhUser);
+                        }
+
+                        await _updatedStreamInBaseAsync(streamTlhUser);
+                    }
+                    else
+                    {
+                        // Si n'existe pas dans la liste
+                        await _addNewStreamInBaseAsync(streamTlhUser);
                         streamTlhUsersToPing.Add(streamTlhUser);
                     }
-
-                    await _updatedStreamInBaseAsync(streamTlhUser);
-                }
-                else
-                {
-                    // Si n'existe pas dans la liste
-                    await _addNewStreamInBaseAsync(streamTlhUser);
-                    streamTlhUsersToPing.Add(streamTlhUser);
                 }
             }
 
@@ -130,8 +130,8 @@ namespace TheLastBot.Server.Services
         private async Task<bool> _isStreamerReallyLaunchingStreamAsync(SocketGuildUser streamTlhUser)
         {
 
-            var discordUser = await _context.DiscordUsers.AsNoTracking().FirstAsync(m => m.GuildUserId == streamTlhUser.Id);
-            var pingDelay = Convert.ToInt16(_iniFileService.Read("Delay", "Ping"));
+            var discordUser = await _context.DiscordUsers!.AsNoTracking().FirstAsync(m => m.GuildUserId == streamTlhUser.Id);
+            const int pingDelay = 10;
             var result = discordUser.IsOnline == false && discordUser.LastActivity.AddMinutes(pingDelay) < DateTime.Now;
             
             return await Task.FromResult(result);

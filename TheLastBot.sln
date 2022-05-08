@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLastBot.Server", "TheLastBot.Server\TheLastBot.Server.csproj", "{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLastBot.Api", "TheLastBot.Api\TheLastBot.Api.csproj", "{EE5DB15E-A5AB-4A69-B154-CA6CB5B1CEEC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLastBot.Database", "TheLastBot.Database\TheLastBot.Database.csproj", "{340EB705-DFC6-4E6A-BCAE-D327A680FCCD}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CEE1D9D-9C3D-4610-AB8B-E046DF47E947}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE5DB15E-A5AB-4A69-B154-CA6CB5B1CEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE5DB15E-A5AB-4A69-B154-CA6CB5B1CEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE5DB15E-A5AB-4A69-B154-CA6CB5B1CEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE5DB15E-A5AB-4A69-B154-CA6CB5B1CEEC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{340EB705-DFC6-4E6A-BCAE-D327A680FCCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{340EB705-DFC6-4E6A-BCAE-D327A680FCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340EB705-DFC6-4E6A-BCAE-D327A680FCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
