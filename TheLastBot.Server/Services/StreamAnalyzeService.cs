@@ -25,8 +25,8 @@ namespace TheLastBot.Server.Services
             _guildId = Convert.ToUInt64(myIni.Read("GuildId", "Discord"));
             _channelId = Convert.ToUInt64(myIni.Read("ChannelId", "Discord"));
 #else
-            _guildId = Environment.GetEnvironmentVariable("DISCORD_API_GUILDID");
-            _channelId = Environment.GetEnvironmentVariable("DISCORD_API_CHANNELID");
+            _guildId =  Convert.ToUInt64(Environment.GetEnvironmentVariable("DISCORD_API_GUILDID"));
+            _channelId = Convert.ToUInt64(Environment.GetEnvironmentVariable("DISCORD_API_CHANNELID"));
 #endif
             var socketGuild = _client.GetGuild(_guildId);
 
