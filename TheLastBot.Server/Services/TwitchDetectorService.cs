@@ -131,7 +131,7 @@ namespace TheLastBot.Server.Services
         {
 
             var discordUser = await _context.DiscordUsers!.AsNoTracking().FirstAsync(m => m.GuildUserId == streamTlhUser.Id);
-            const int pingDelay = 10;
+            const int pingDelay = 30;
             var result = discordUser.IsOnline == false && discordUser.LastActivity.AddMinutes(pingDelay) < DateTime.Now;
             
             return await Task.FromResult(result);
